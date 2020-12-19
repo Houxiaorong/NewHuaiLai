@@ -2,7 +2,7 @@
 * @Author: 25401
 * @Date:   2020-06-13 09:39:25
 * @Last Modified by:   25401
-* @Last Modified time: 2020-12-18 22:15:41
+* @Last Modified time: 2020-12-19 20:45:45
 */
 *{
     padding: 0;
@@ -89,21 +89,24 @@ body{
 
 .banner{
 	background-color: #fde;
-	height: 500px;
+	height: 600px;
 	width: 100%;
-	margin: 0 auto;
-	position: relative;	
+	margin: 0 auto;	
+}
+#slider{
+	width: 1200px;
+	height: 600px;
+	margin: 0 auto;	
 	overflow: hidden;
+	position: relative;
 }
 #imgList{
-	width: 1650px;
-	height: 500px;
-	margin: 0 auto;
-	position: relative;
-	left: 12%;
-	right: 25%;
+	width: 6000px;
+	height: 600px;
+	position: absolute;
+	left: -1200px;
 }
-#imgList li{
+#imgList img{
 	float: left;
 }
 
