@@ -26,10 +26,15 @@
 		</div>		
 	</div>
 	<div class="banner">
-		<ul id="imgList">
-			<li><img src="imgs/banner2.jpg"></li>
-			<li><img src="imgs/banner3.jpg"></li>
-		</ul>
+		<div id="slider">
+			<div id="imgList">
+				<img src="imgs/banner3.jpg">
+				<img src="imgs/banner1.jpg">
+				<img src="imgs/banner2.jpg">
+				<img src="imgs/banner3.jpg">
+				<img src="imgs/banner1.jpg">
+			</div>
+		</div>
 	</div>
 	<div class="wrapper">
 		<div class="container clear">
@@ -200,6 +205,62 @@
 			},150);
 		}
 
+		function getStyle(obj,attr){
+			if(obj.currentStyle){
+				return obj.currentStyle[attr];
+			}else{
+				return getComputedStyle(obj,null)[attr];
+			}
+		}
+		function animate(obj,json,callback){
+			clearInterval(obj.timer);
+			obj.timer = setInterval(function(){
+				var isStop = true;
+				for(var attr in json){
+					var now=0;
+					if(attr=="opacity"){
+						now = parseInt(getStyle(obj,attr)*100);
+					}else{
+						now = parseInt(getStyle(obj,attr));
+					}
+					var speed = (json[attr]-now)/8;
+					speed = speed>0?Math.ceil(speed):Math.floor(speed);
+					var cur = now + speed;
+					if(attr=="opacity"){
+						obj.style[attr] = cur/100+"px";
+					}else{
+						obj.style[attr] = cur + "px";
+					}
+					if(json[attr] !==cur){
+						isStop=false;
+					}
+				}
+				if(isStop){
+					clearInterval(obj.timer);
+					callback&&callback();
+				}
+			}, 30)
+		}
+		var slider = document.getElementById("slider");
+		var imgList=document.getElementById("imgList");
+		var i=1;
+		function next(){
+		 	i++;
+		 	if(i==4){
+		 			imgList.style.left="-1200px";
+		 			i=1;
+		 		}
+		 	animate(imgList,{left:-1200*i},function(){
+		 	});
+		 }
+		var timer=setInterval(next, 3000);
+		slider.onmouseover = function(){
+			clearInterval(timer);
+		}
+		slider.onmouseout = function(){
+			timer = setInterval(next,3000);
+		}
+		//特色图片上要点浮现
 		var spots=document.getElementsByClassName("spots");
 		var features = document.getElementsByClassName("feature");
 		features[0].onmouseover = function(){
